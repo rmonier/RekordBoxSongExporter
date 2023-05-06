@@ -42,11 +42,17 @@ class RekordBoxSongExporter(ConanFile):
         ms = MSBuildDeps(self)
         ms.generate()
         tc = MSBuildToolchain(self)
+        if self.settings.os == "Linux":
+            tc.preprocessor_definitions["LINK_PLATFORM_LINUX"] = 1
+        elif self.settings.os == "Macos":
+            tc.preprocessor_definitions["LINK_PLATFORM_MACOS"] = 1
+        elif self.settings.os == "Windows":
+            tc.preprocessor_definitions["LINK_PLATFORM_WINDOWS"] = 1
         tc.generate()
 
     def build(self):
         msbuild = MSBuild(self)
         # hacky way to add parameters to the build command
         msbuild.platform = f"{self._platform} /p:ForceImportBeforeCppProps={self.build_folder}/conandeps.props " \
-                           f"/p:ForceImportAfterCppDefaultProps={self.build_folder}/conan_toolchain.props"
+                           f"/p:ForceImportAfterCppDefaultProps={self.build_folder}/conantoolchain.props"
         msbuild.build(f"{self.source_folder}/RekordBoxSongExporter.sln")

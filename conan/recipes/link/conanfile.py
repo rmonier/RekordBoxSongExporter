@@ -37,6 +37,7 @@ class Link(ConanFile):
         cmake.install()
         copy(self, pattern="*", src=f"{self.source_folder}/include/ableton", dst=f"{self.package_folder}/include/ableton")
         copy(self, pattern="*", src=f"{self.source_folder}/third_party/catch", dst=f"{self.package_folder}/include/catch")
+        copy(self, pattern="*", src=f"{self.source_folder}/modules/asio-standalone/asio/include", dst=f"{self.package_folder}/include")
         copy(self, pattern="*", src=f"{self.build_folder}/{self.settings.build_type}", dst=f"{self.package_folder}/lib", keep_path=False)
         copy(self, pattern="*", src=f"{self.build_folder}/bin", dst=f"{self.package_folder}/bin", keep_path=False)
         symlinks.absolute_to_relative_symlinks(self, self.package_folder)

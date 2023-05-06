@@ -66,7 +66,7 @@ class Capstone(ConanFile):
     def build(self):
         msbuild = MSBuild(self)
         # hacky way to add parameters to the build command
-        msbuild.platform = f"{self._platform} /p:PlatformToolset={self._toolset} /p:ForceImportAfterCppDefaultProps={self.build_folder}/conan_toolchain.props"
+        msbuild.platform = f"{self._platform} /p:PlatformToolset={self._toolset} /p:ForceImportAfterCppDefaultProps={self.build_folder}/conantoolchain.props"
         msbuild.build("msvc/capstone.sln", targets=["capstone_static"])
 
     def package(self):
