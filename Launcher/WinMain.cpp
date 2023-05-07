@@ -339,7 +339,7 @@ static void do_create(HWND hwnd)
     // Create listbox of output files
     hwndOutfilesList = CreateWindow(WC_LISTBOX, NULL,
         WS_VISIBLE | WS_CHILD | WS_BORDER | WS_VSCROLL | LBS_NOTIFY | WS_TABSTOP,
-        12, 70, 140, 128, hwnd, (HMENU)OUTFILES_LIST_ID, NULL, NULL);
+        12, 70, 140, 145, hwnd, (HMENU)OUTFILES_LIST_ID, NULL, NULL);
 
     // populate the listbox with names, when an item is
     // selected the rest of the fields will be populated
@@ -350,12 +350,12 @@ static void do_create(HWND hwnd)
     // Button to delete entries from listbox
     hwndDelFileButton = CreateWindow(WC_BUTTON, "Delete",
         WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP,
-        12, 192, 69, 28, hwnd, (HMENU)DEL_BUTTON_ID, NULL, NULL);
+        12, 210, 69, 30, hwnd, (HMENU)DEL_BUTTON_ID, NULL, NULL);
 
     // Button to add new entries to listbox
     hwndAddFileButton = CreateWindow(WC_BUTTON, "Add",
         WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP,
-        83, 192, 69, 28, hwnd, (HMENU)ADD_BUTTON_ID, NULL, NULL);
+        83, 210, 69, 30, hwnd, (HMENU)ADD_BUTTON_ID, NULL, NULL);
 
     // Output file name edit textbox
     hwndOutfileNameEdit = CreateWindow(WC_EDIT, "",
