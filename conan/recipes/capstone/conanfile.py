@@ -18,7 +18,6 @@ class Capstone(ConanFile):
     build_policy = "missing"
 
     _platform = None
-    _toolset = "v143"
 
     def source(self):
         git = Git(self)
@@ -60,13 +59,15 @@ class Capstone(ConanFile):
 
     def generate(self):
         tc = MSBuildToolchain(self)
-        tc.toolset = self._toolset
+        # Needed to rebuild the project with the latest version of Visual Studio (2022)
+        # As of Conan 2.0.4, it is not yet included in the compiler.toolchain list, so we have to set it manually
+        tc.toolset = "v143"
         tc.generate()
 
     def build(self):
         msbuild = MSBuild(self)
         # hacky way to add parameters to the build command
-        msbuild.platform = f"{self._platform} /p:PlatformToolset={self._toolset} /p:ForceImportAfterCppDefaultProps={self.build_folder}/conantoolchain.props"
+        msbuild.platform = f"{self._platform} /p:ForceImportBeforeCppProps={self.build_folder}/conantoolchain.props"
         msbuild.build("msvc/capstone.sln", targets=["capstone_static"])
 
     def package(self):

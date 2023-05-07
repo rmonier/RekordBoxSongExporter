@@ -299,10 +299,13 @@ void push_deck_update(uint32_t deck_idx, deck_update_type_t type)
 void run_listener()
 {
   // Ableton Link
-  info("[LINK] Initializing Ableton Link");
-  ableton::Link link(120.);
-  link.enable(true);
-  success("[LINK] Ableton Link started");
+  ableton::Link *link = nullptr;
+  if(config.use_link) {
+    info("[LINK] Initializing Ableton Link");
+    link = new ableton::Link(120.);
+    link->enable(true);
+    success("[LINK] Ableton Link started");
+  }
 
   // Only write to log files in this safe thread, for some reason windows 8.1
   // doesn't like when we call CreateFile inside the threads that we hook.
@@ -359,13 +362,17 @@ void run_listener()
     case UPDATE_TYPE_TOTAL_TIME:
     case UPDATE_TYPE_MASTER:
       // if the Ableton Link is enabled, send the BPM to Link
-      if(link.isEnabled()) {
+      if (config.use_link && link != nullptr && link->isEnabled()) {
         info("[LINK] Session state capture started");
-        auto state = link.captureAppSessionState();
+        auto state = link->captureAppSessionState();
         state.setTempo(stod(output_file::get_master_bpm()), chrono::microseconds(0));
         info("[LINK] Sending new BPM to Link peers...");
-        link.commitAppSessionState(state);
+        link->commitAppSessionState(state);
         success("[LINK] Master BPM set to: %s (%.2f)", output_file::get_master_bpm().c_str(), stod(output_file::get_master_bpm()));
+      } else if (config.use_link && link == nullptr) {
+        error("[LINK] Ableton Link has not been initialized correctly, skipping BPM update");
+      } else if (config.use_link) {
+        error("[LINK] Ableton Link has been disabled, skipping BPM update");
       }
       break;
     }
@@ -437,9 +444,15 @@ void run_listener()
   }
 
   // Shut down Ableton Link
-  info("[LINK] Stopping Ableton Link");
-  link.enable(false);
-  success("[LINK] Ableton Link stopped");
+  if (config.use_link && link != nullptr && link->isEnabled()) {
+    info("[LINK] Stopping Ableton Link");
+    link->enable(false);
+    success("[LINK] Ableton Link stopped");
+  } else if (config.use_link && link == nullptr) {
+    error("[LINK] Ableton Link has not been initialized correctly, no need to stop");
+  } else if (config.use_link) {
+    error("[LINK] Ableton Link is already disabled, no need to stop");
+  }
 }
 
 // Pop the next deck change index out of the queue, only meant to

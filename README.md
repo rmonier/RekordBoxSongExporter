@@ -232,7 +232,7 @@ This works with either two or four decks.
 
 ## How to build
 
-1. Install the [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/fr/downloads/#build-tools-for-visual-studio-2022) to get the MSVC v19.3 compiler with MSBuild toolset v143
+1. Install the [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) to get the MSVC v19.3 compiler with MSBuild toolset v143
 2. Install [Python 3](https://www.python.org/downloads/)
 3. Install [conan](https://conan.io/downloads.html): ```pip install conan```
 4. Install the dependencies and build the project:

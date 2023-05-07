@@ -53,6 +53,6 @@ class RekordBoxSongExporter(ConanFile):
     def build(self):
         msbuild = MSBuild(self)
         # hacky way to add parameters to the build command
-        msbuild.platform = f"{self._platform} /p:ForceImportBeforeCppProps={self.build_folder}/conandeps.props " \
-                           f"/p:ForceImportAfterCppDefaultProps={self.build_folder}/conantoolchain.props"
+        msbuild.platform = f"{self._platform} /p:ForceImportBeforeCppProps={self.build_folder}/conantoolchain.props " \
+                           f"/p:ForceImportAfterCppDefaultProps={self.build_folder}/conandeps.props"
         msbuild.build(f"{self.source_folder}/RekordBoxSongExporter.sln")
