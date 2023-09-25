@@ -8,7 +8,7 @@ required_conan_version = ">=2.0"
 
 class Link(ConanFile):
     name = "link"
-    version = "3.0.6"
+    version = "3.1.0"
     url = "https://github.com/Ableton/Link"
     homepage = "https://ableton.github.io/link/"
     description = "Ableton Link"
@@ -21,7 +21,7 @@ class Link(ConanFile):
         git.run("submodule update --init --recursive")
 
     def build_requirements(self):
-        self.tool_requires("cmake/3.26.3")
+        self.tool_requires("cmake/3.27.5")
 
     def generate(self):
         tc = CMakeToolchain(self)

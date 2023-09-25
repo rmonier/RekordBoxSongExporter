@@ -30,7 +30,7 @@ class RekordBoxSongExporter(ConanFile):
 
     def requirements(self):
         self._requires("capstone", "4.0.2")
-        self._requires("link", "3.0.6")
+        self._requires("link", "3.1.0")
 
     def validate(self):
         if self.settings.os != "Windows" or self.settings.compiler != "msvc" or self.settings.arch != "x86_64":
