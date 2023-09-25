@@ -29,7 +29,7 @@ class RekordBoxSongExporter(ConanFile):
         self.requires(f"{lib}/{version}")
 
     def requirements(self):
-        self._requires("capstone", "4.0.2")
+        self.requires("capstone/4.0.2")
         self._requires("link", "3.1.0")
 
     def validate(self):
