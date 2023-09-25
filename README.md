@@ -25,6 +25,21 @@ The optional server allows you to send the track information to another PC and
 perform the logging on that pc instead. For situations where Rekordbox may be running
 on a separate PC from OBS.
 
+## How to build
+
+1. Install the [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) to get the MSVC v19.3 compiler with MSBuild toolset v143
+2. Install [Python 3](https://www.python.org/downloads/)
+3. Install [conan](https://conan.io/downloads.html): ```pip install conan```
+4. Install the dependencies and build the project:
+    ```sh
+    conan build . -of conan/build/release -pr ./conan/profiles/release -pr:b ./conan/profiles/release --build missing
+    ```
+   You can also build in Debug mode during the development using:
+    ```sh
+    conan build . -of conan/build/debug -pr ./conan/profiles/debug -pr:b ./conan/profiles/debug --build missing
+    ```
+5. The binaries will be in the `x64` folder.
+
 ## Getting Started
 
 If you run Rekordbox and OBS on different PCs then you must start the Server on the
@@ -229,18 +244,3 @@ while a track is already playing there. F in chat for your terrible transition, 
 rest assured the song will still be logged correctly.  
 
 This works with either two or four decks.
-
-## How to build
-
-1. Install the [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) to get the MSVC v19.3 compiler with MSBuild toolset v143
-2. Install [Python 3](https://www.python.org/downloads/)
-3. Install [conan](https://conan.io/downloads.html): ```pip install conan```
-4. Install the dependencies and build the project:
-    ```sh
-    conan build . -of conan/build/release -pr ./conan/profiles/release -pr:b ./conan/profiles/release --build missing
-    ```
-   You can also build in Debug mode during the development using:
-    ```sh
-    conan build . -of conan/build/debug -pr ./conan/profiles/debug -pr:b ./conan/profiles/debug --build missing
-    ```
-5. The binaries will be in the `x64` folder.

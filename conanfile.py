@@ -14,7 +14,7 @@ class RekordBoxSongExporter(ConanFile):
     conan build . -of conan/build/release -pr ./conan/profiles/release -pr:b ./conan/profiles/release --build missing
     """
     name = "RekordBoxSongExporter"
-    version = "3.8.1"
+    version = "3.8.2"
     description = "A hack for Rekordbox on Windows x64 to export track information for realtime integration with OBS " \
                   "and Ableton Link"
     package_type = "application"
