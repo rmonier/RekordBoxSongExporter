@@ -3,12 +3,13 @@ from conan.tools.cmake import CMake, CMakeToolchain
 from conan.tools.files import copy, symlinks
 from conan.tools.scm import Git
 
-required_conan_version = ">=2.0"
+required_conan_version = ">=2.2"
 
 
 class Link(ConanFile):
     name = "link"
-    version = "3.1.0"
+    version = "3.1.1"
+    _digest = "9c968b6be442287a37e1f677a1db8077681bf310"
     url = "https://github.com/Ableton/Link"
     homepage = "https://ableton.github.io/link/"
     description = "Ableton Link"
@@ -17,11 +18,11 @@ class Link(ConanFile):
 
     def source(self):
         git = Git(self)
-        git.fetch_commit(self.url, f"Link-{self.version}")
+        git.fetch_commit(self.url, self._digest)
         git.run("submodule update --init --recursive")
 
     def build_requirements(self):
-        self.tool_requires("cmake/3.27.5")
+        self.tool_requires("cmake/3.29.2")
 
     def generate(self):
         tc = CMakeToolchain(self)

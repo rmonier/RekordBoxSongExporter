@@ -2,16 +2,20 @@ from conan import ConanFile
 from conans.errors import ConanException
 from conan.tools.microsoft import MSBuild, MSBuildDeps, MSBuildToolchain
 
-required_conan_version = ">=2.0"
+required_conan_version = ">=2.2"
 
 
 class RekordBoxSongExporter(ConanFile):
     """
-    Install and build with:
+    - Add local recipes with:
 
-    conan build . -of conan/build/debug -pr ./conan/profiles/debug -pr:b ./conan/profiles/debug --build missing
+    conan remote add local-rbse-repo ./conan --allowed-packages="link/*" --force
+
+    - Install and build with:
+
+    conan build . -of conan/build/debug -pr:a ./conan/profiles/debug --build missing
     or
-    conan build . -of conan/build/release -pr ./conan/profiles/release -pr:b ./conan/profiles/release --build missing
+    conan build . -of conan/build/release -pr:a ./conan/profiles/release --build missing
     """
     name = "RekordBoxSongExporter"
     version = "3.8.3"
@@ -23,14 +27,9 @@ class RekordBoxSongExporter(ConanFile):
 
     _platform = None
 
-    def _requires(self, lib, version):
-        profile = 'debug' if self.settings.build_type == 'Debug' else 'release'
-        self.run(f"conan create conan/recipes/{lib} -pr ./conan/profiles/{profile} -pr:b ./conan/profiles/{profile} --build missing")
-        self.requires(f"{lib}/{version}")
-
     def requirements(self):
         self.requires("capstone/4.0.2")
-        self._requires("link", "3.1.0")
+        self.requires("link/3.1.1")
 
     def validate(self):
         if self.settings.os != "Windows" or self.settings.compiler != "msvc" or self.settings.arch != "x86_64":
