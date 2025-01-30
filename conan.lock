@@ -1,11 +1,11 @@
 {
     "version": "0.5",
     "requires": [
-        "link/3.1.1#38327d94a8b848b92668ff7412b9efaf%1714080127.4166286",
-        "capstone/4.0.2#96cf8a0c66d96c65062277068756beb0%1688865269.466"
+        "link/3.1.2#24efbb48a0163fb7b1d89cd9752fa3f7%1738265915.4270449",
+        "capstone/5.0.1#1f9c39dc23cad765aab6a67b124bd712%1703969667.741"
     ],
     "build_requires": [
-        "cmake/3.29.2#2b84343440461e8c5952c034d896fb67%1713311246.014"
+        "cmake/3.31.3#8733a6094cad0031a30ddbd1e6055117%1735557487.463"
     ],
     "python_requires": [],
     "config_requires": []

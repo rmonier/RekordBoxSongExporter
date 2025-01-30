@@ -31,6 +31,7 @@ const char *rbver_strings[RBVER_COUNT] = {
     "6.6.11", // RBVER_6611
     "6.7.0", // RBVER_670
     "6.7.5", // RBVER_675
+    "7.0.8", // RBVER_708
 };
 
 // global config object
@@ -74,6 +75,8 @@ bool initialize_config()
             config.use_server = (strtoul(value.c_str(), NULL, 10) != 0);
         } else if (key == "server_ip") {
             config.server_ip = value;
+        } else if (key == "update_rate") {
+            config.update_rate = strtoul(value.c_str(), NULL, 10);
         } else if (key == "use_link") {
             config.use_link = (strtoul(value.c_str(), NULL, 10) != 0);
         }

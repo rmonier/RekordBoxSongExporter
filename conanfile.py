@@ -1,8 +1,8 @@
 from conan import ConanFile
-from conans.errors import ConanException
+from conan.errors import ConanException
 from conan.tools.microsoft import MSBuild, MSBuildDeps, MSBuildToolchain
 
-required_conan_version = ">=2.2"
+required_conan_version = ">=2.9"
 
 
 class RekordBoxSongExporter(ConanFile):
@@ -18,7 +18,7 @@ class RekordBoxSongExporter(ConanFile):
     conan build . -of conan/build/release -pr:a ./conan/profiles/release --build missing
     """
     name = "RekordBoxSongExporter"
-    version = "3.8.3"
+    version = "4.0.0"
     description = "A hack for Rekordbox on Windows x64 to export track information for realtime integration with OBS " \
                   "and Ableton Link"
     package_type = "application"
@@ -28,8 +28,28 @@ class RekordBoxSongExporter(ConanFile):
     _platform = None
 
     def requirements(self):
-        self.requires("capstone/4.0.2")
-        self.requires("link/3.1.1")
+        capstone_options = {
+            "x86": True,
+            "arm": False,
+            # "arm64": False, # this should be available, but it isn't
+            # "mos65xx": False, # this should be available, but it isn't
+            # "wasm": False, # this should be available, but it isn't
+            # "bpf": False, # this should be available, but it isn't
+            # "riscv": False, # this should be available, but it isn't
+            # "sh": False, # this should be available, but it isn't
+            # "tricore": False, # this should be available, but it isn't
+            "m68k": False,
+            "mips": False,
+            "ppc": False,
+            "sparc": False,
+            "sysz": False,
+            "xcore": False,
+            "tms320c64x": False,
+            "m680x": False,
+            "evm": False,
+        }
+        self.requires("capstone/5.0.1", options=capstone_options)
+        self.requires("link/3.1.2")
 
     def validate(self):
         if self.settings.os != "Windows" or self.settings.compiler != "msvc" or self.settings.arch != "x86_64":
